@@ -1,56 +1,86 @@
-/*!
-* Start Bootstrap - Agency v6.0.5 (https://startbootstrap.com/theme/agency)
-* Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-*/
-(function ($) {
-    "use strict"; // Start of use strict
-
-    // Smooth scrolling using anime.js
-    $('a.js-scroll-trigger[href*="#"]:not([href="#"])').on('click', function () {
-        if (
-            location.pathname.replace(/^\//, "") ==
-            this.pathname.replace(/^\//, "") &&
-            location.hostname == this.hostname
-        ) {
-            var target = $(this.hash);
-            target = target.length ?
-                target :
-                $("[name=" + this.hash.slice(1) + "]");
-            if (target.length) {
-                anime({
-                    targets: 'html, body',
-                    scrollTop: target.offset().top - 72,
-                    duration: 1000,
-                    easing: 'easeInOutExpo'
-                });
-                return false;
+$(function() {
+    $(".box").on("mousedown", function(e) {
+        const gate = $(this).children("div");
+        $(this).children(".locker").hide();
+        for (var i = 0; i < gate.length; i++) {
+            if ($(gate[i]).hasClass("ovrl-left")) {
+                $(gate[i]).toggleClass("move-right");
+            }
+            if ($(gate[i]).hasClass("ovrl-right")) {
+                $(gate[i]).toggleClass("move-left");
             }
         }
+        // removes the click event after reveling the image
+        $(this).off();
     });
+});
 
-    // Closes responsive menu when a scroll trigger link is clicked
-    $(".js-scroll-trigger").on('click', function () {
-        $(".navbar-collapse").collapse("hide");
-    });
 
-    // Activate scrollspy to add active class to navbar items on scroll
-    $("body").scrollspy({
-        target: "#mainNav",
-        offset: 74,
-    });
+// Get the modal
+var modal = document.getElementById("myModal");
 
-    // Collapse Navbar
-    var navbarCollapse = function () {
-        if ($("#mainNav").offset().top > 100) {
-            $("#mainNav").addClass("navbar-shrink");
-        } else {
-            $("#mainNav").removeClass("navbar-shrink");
-        }
-    };
-    // Collapse now if page is not at top
-    navbarCollapse();
-    // Collapse the navbar when page is scrolled
-    $(window).on('scroll', navbarCollapse);
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
 
-})(jQuery); // End of use strict
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+var modal1 = document.getElementById("myModal1");
+
+// Get the button that opens the modal1
+var btn1 = document.getElementById("myBtn1");
+
+// Get the <span> element that closes the modal1
+var span1 = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal1 
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal1
+span1.onclick = function() {
+        modal1.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal1, close it
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
+}
+
+var slideIndex = [1, 1];
+var slideId = ["mySlides1", "mySlides2"]
+showSlides(1, 0);
+showSlides(1, 1);
+
+function plusSlides(n, no) {
+    showSlides(slideIndex[no] += n, no);
+}
+
+function showSlides(n, no) {
+    var i;
+    var x = document.getElementsByClassName(slideId[no]);
+    if (n > x.length) { slideIndex[no] = 1 }
+    if (n < 1) { slideIndex[no] = x.length }
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex[no] - 1].style.display = "block";
+}
